@@ -1,0 +1,24 @@
+﻿<UserControl
+    x:Class="engVidWS.mListBoxItemOne"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:engVidWS"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="50"
+    >
+    
+    <Grid Background="Transparent" Height="50">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" x:Name="img"></Image>
+        <TextBlock Grid.Column="1" Grid.Row="0" VerticalAlignment="Top" Name="title" Text="Sample" Foreground="Black" Padding="5,0,0,0" FontSize="18"></TextBlock>
+        <TextBlock Grid.Column="1" Grid.Row="0" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" x:Name="subTitle" Text="Sample" Foreground="Black" Padding="5,0,0,0" FontSize="14"></TextBlock>
+    </Grid>
+</UserControl>

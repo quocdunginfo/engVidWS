@@ -19,6 +19,12 @@ namespace engVidWSCORE
 
         public string teacher_name { get; set; }
         public string teacher_avatar_url { get; set; }
-        public BitmapImage TEACHER_AVATAR { get; set; }
+        public BitmapImage TEACHER_AVATAR
+        {
+            get
+            {
+                return mCACHE.get(teacher_avatar_url);
+            }
+        }
     }
 }

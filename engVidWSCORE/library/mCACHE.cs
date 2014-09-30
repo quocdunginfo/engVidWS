@@ -34,7 +34,12 @@ namespace engVidWSCORE
             {
                 return collection[url];
             }
-            return null;
+            //neu khong co thi tu register luon
+            else
+            {
+                register(url, mHTTP.getImage(url));
+                return get(url);
+            }
         }
         /// <summary>
         /// Đánh dấu url fail, lần get kế tiếp từ CACHE sẽ trả về hình mặc định
@@ -49,7 +54,7 @@ namespace engVidWSCORE
         /// </summary>
         /// <param name="url"></param>
         /// <param name="image"></param>
-        public static void register(String url, BitmapImage image)
+        private static void register(String url, BitmapImage image)
         {
             if (url == null)
             {

@@ -69,7 +69,8 @@ namespace engVidWSCORE
             try
             {
                 var httpClient = new HttpClient();
-                return await httpClient.GetStringAsync(new Uri(url)).ConfigureAwait(false);
+                //return await httpClient.GetStringAsync(new Uri(url)).ConfigureAwait(false);
+                return await httpClient.GetStringAsync(new Uri("http://localhost/sample.html")).ConfigureAwait(false);
             }
             catch (Exception)
             {
@@ -77,5 +78,9 @@ namespace engVidWSCORE
                 return "";
             }
         }
+        #region 
+        
+
+        #endregion
     }
 }
