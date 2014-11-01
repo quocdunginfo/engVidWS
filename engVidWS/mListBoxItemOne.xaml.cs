@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using engVidWSCORE;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -23,12 +24,21 @@ namespace engVidWS
         {
             this.InitializeComponent();
         }
-        public mListBoxItemOne(BitmapImage img, string title, string subTitle)
+        private LessonItem lesson = null;
+        public LessonItem LESSON
+        {
+            get
+            {
+                return lesson;
+            }
+        }
+        public mListBoxItemOne(BitmapImage img, string title, string subTitle, LessonItem lesson=null)
         {
             this.InitializeComponent();
             this.img.Source = img;
             this.title.Text = title;
             this.subTitle.Text = subTitle;
+            this.lesson = lesson;
         }
     }
 }

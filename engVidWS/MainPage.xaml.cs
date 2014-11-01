@@ -39,7 +39,10 @@ namespace engVidWS
             var tsk = await mENGVID.loadAll();
             displayData(mENGVID.LESSON_ITEMS);
         }
-
+        /// <summary>
+        /// Display list data to UI
+        /// </summary>
+        /// <param name="list"></param>
         private async void displayData(List<LessonItem> list)
         {
             var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
@@ -49,14 +52,14 @@ namespace engVidWS
                 {
                     var re = mListHelper.convert(list);
                     //clear listbox first
-                    if (listBox1 != null)
+                    if (listBox_main != null)
                     {
-                        listBox1.Items.Clear();
+                        listBox_main.Items.Clear();
                     }
 
                     foreach (var item in re)
                     {
-                        listBox1.Items.Add(item);
+                        listBox_main.Items.Add(item);
                     }                
                 }
             );
@@ -117,28 +120,103 @@ namespace engVidWS
                     ));
             }
         }
-
+        
         private void comBo_Teachers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = (sender as ComboBox).SelectedItem as mImageComboboxItem;
-            string value = item.getValue();
-            if (value == null)
-            {
-                return;
-            }
-
-            List<LessonItem> re =null;
-            if (!value.ToLower().Contains("all"))
-            {
-                re = mENGVID.LESSON_ITEMS.Where(c => c.teacher_name != null && c.teacher_name.ToLower().Contains(value.ToLower())).ToList();
-
-            }
-            else
-            {
-                re = mENGVID.LESSON_ITEMS;
-            }
-            //re = mENGVID.LESSON_ITEMS.Where(c => c.teacher_name == null).ToList();
+            var teacher = comBo_Teachers.SelectedItem as mImageComboboxItem;
+            var topic = comBo_Topics.SelectedItem as mComboboxItem;
+            var level = comBo_Levels.SelectedItem as mComboboxItem;
+            
+            List<LessonItem> re = mENGVID.search(
+                getComboBoxValue(teacher),
+                getComboBoxValue(topic),
+                getComboBoxValue(level)
+            );
+            
             displayData(re);
+        }
+        /// <summary>
+        /// Get value of Combobox
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        private string getComboBoxValue(mImageComboboxItem item)
+        {
+            if(item==null)
+            {
+                return "";
+            }
+            var value = item.getValue();
+            if (value.Equals("(All)"))
+            {
+                value = "";
+            }
+            return value;
+        }
+        private string getComboBoxValue(mComboboxItem item)
+        {
+            if (item == null)
+            {
+                return "";
+            }
+            var value = item.getValue();
+            if (value.Equals("(All)"))
+            {
+                value = "";
+            }
+            return value;
+        }
+
+        private void comBo_Topics_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var teacher = comBo_Teachers.SelectedItem as mImageComboboxItem;
+            var topic = comBo_Topics.SelectedItem as mComboboxItem;
+            var level = comBo_Levels.SelectedItem as mComboboxItem;
+
+            List<LessonItem> re = mENGVID.search(
+                getComboBoxValue(teacher),
+                getComboBoxValue(topic),
+                getComboBoxValue(level)               
+            );
+
+            displayData(re);
+        }
+
+        private void comBo_Levels_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var teacher = comBo_Teachers.SelectedItem as mImageComboboxItem;
+            var topic = comBo_Topics.SelectedItem as mComboboxItem;
+            var level = comBo_Levels.SelectedItem as mComboboxItem;
+
+            List<LessonItem> re = mENGVID.search(
+                getComboBoxValue(teacher),
+                getComboBoxValue(topic),
+                getComboBoxValue(level)                
+            );
+
+            displayData(re);
+        }
+
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string keyword = txtSearch.Text;
+            displayData(mENGVID.search_global(keyword));
+        }
+
+        private void listBox_main_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //var item = listBox_main.SelectedItem as mListBoxItemOne;
+            //displayLesson(item.LESSON);
+            //btnLink.NavigateUri = new Uri(item.LESSON.YOUTUBE_LINK);
+        }
+        private void displayLesson(LessonItem item)
+        {
+            
+        }
+
+        private void web_main_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
         }
     }
 }

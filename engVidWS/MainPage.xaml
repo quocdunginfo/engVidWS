@@ -18,18 +18,18 @@
         </Grid.RowDefinitions>
         <ComboBox VerticalAlignment="Center" Grid.Column="0" Grid.Row="0" x:Name="comBo_Teachers" HorizontalAlignment="Left"  Width="180" Height="60" SelectionChanged="comBo_Teachers_SelectionChanged"/>
 
-        <ComboBox VerticalAlignment="Center" x:Name="comBo_Topics" HorizontalAlignment="Left" Width="200" Height="60" Grid.ColumnSpan="2" Margin="190,0,0,0">
+        <ComboBox VerticalAlignment="Center" x:Name="comBo_Topics" HorizontalAlignment="Left" Width="200" Height="60" Grid.ColumnSpan="2" Margin="190,0,0,0" SelectionChanged="comBo_Topics_SelectionChanged">
 
         </ComboBox>
-        <ComboBox VerticalAlignment="Center" x:Name="comBo_Levels" HorizontalAlignment="Left" Width="200" Height="60" Grid.ColumnSpan="2" Margin="400,0,0,0">
+        <ComboBox VerticalAlignment="Center" x:Name="comBo_Levels" HorizontalAlignment="Left" Width="200" Height="60" Grid.ColumnSpan="2" Margin="400,0,0,0" SelectionChanged="comBo_Levels_SelectionChanged">
 
         </ComboBox>
-        <TextBox Text="search" x:Name="txtSearch" Height="60" TextAlignment="Left" Grid.Column="0" Grid.Row="0" Width="250" HorizontalAlignment="Right" FontSize="24" FontFamily="Tahoma" Padding="10,12,10,5"/>
-        <ListBox x:Name="listBox1" Background="White" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch">
+        <TextBox Text="search" x:Name="txtSearch" Height="60" TextAlignment="Left" Grid.Column="0" Grid.Row="0" Width="250" HorizontalAlignment="Right" FontSize="24" FontFamily="Tahoma" Padding="10,12,10,5" TextChanged="txtSearch_TextChanged"/>
+        <ListBox x:Name="listBox_main" Background="White" HorizontalAlignment="Stretch"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Stretch" SelectionChanged="listBox_main_SelectionChanged">
             
         </ListBox>
-        <WebView Grid.Column="1" Grid.Row="1" Height="300" VerticalAlignment="Top" />
-        
+        <WebView x:Name="web_main" Grid.Column="1" Grid.Row="1" Height="300" VerticalAlignment="Top" Tapped="web_main_Tapped" />
+        <HyperlinkButton Background="Aquamarine" NavigateUri="" x:Name="btnLink" Grid.Column="1" Grid.Row="1" Height="30" Margin="0,340,0,328" Width="66" />
         
     </Grid>
 </Page>

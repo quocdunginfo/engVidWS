@@ -53,8 +53,9 @@ namespace engVidWSCORE
             TEACHERS.Add("Valen", "http://gravatar.com/avatar/7ac67909afe6f765c7ca561b83e7ebd1");
         }
 
-        public static string _LESSON_BROWSER_GATEWAY = "http://www.engvid.com/english-lesson-browser/";
+        public static string _LESSON_BROWSER_GATEWAY = "http://localhost/engvid.html";//"http://www.engvid.com/english-lesson-browser/";
         public static string _ITEM_CLASS = "lessonlinks_all_row";
+        public static string _YOUTUBE_META = "video_src";
         public static string _ITEM_TITLE_CLASS = "lessonlinks_all_lessontitle";
         public static string _ITEM_CATS_CLASS = "lessonlinks_all_category_item";
         #region Business
@@ -135,7 +136,70 @@ namespace engVidWSCORE
                 return 1;
             }
         }
-
+        public static List<LessonItem> search(string teacher_name = "", string topic_name="", string level_name="")
+        {
+            List<LessonItem> re = mENGVID.LESSON_ITEMS;
+            if (teacher_name!=null && !teacher_name.Equals(""))
+            {
+                re = re.Where(c => c.teacher_name != null && c.teacher_name.ToLower().Contains(teacher_name.ToLower())).ToList();
+            }
+            if (topic_name != null && !topic_name.Equals(""))
+            {
+                re = re.Where(c =>c.level_topics!=null && c.level_topics.Contains(topic_name)).ToList();
+            }
+            if (level_name != null && !level_name.Equals(""))
+            {
+                re = re.Where(c => c.level_topics != null && c.level_topics.Contains(level_name)).ToList();
+            }
+            return re;
+        }
+        public static List<LessonItem> search_global(string keyword = "")
+        {
+            List<LessonItem> re = mENGVID.LESSON_ITEMS;
+            if (keyword != null && !keyword.Equals(""))
+            {
+                re = re.Where(
+                    c =>
+                        c.matchKeyWord(keyword)
+                        
+                ).ToList();
+            }
+            
+            return re;
+        }
         #endregion
+
+        public static async Task<string> getYoutubeLink(string link)
+        {
+            try
+            {
+                HtmlDocument doc = new HtmlDocument();
+                string html = await mHTTP.getHTML(link).ConfigureAwait(false);
+                //get html fail
+                if (html == null || html.Equals(""))
+                {
+                    return "";
+                }
+                //parse html
+                doc.LoadHtml(html);
+                var list = doc.DocumentNode.Descendants("link")
+                    .Where(
+                    c =>
+                        c.Attributes.Contains("rel")
+                        &&
+                        c.Attributes["rel"].Value.ToLower().Equals(_YOUTUBE_META)
+                    ).ToList();
+                if (list != null && list.Count > 0)
+                {
+                    return list[0].Attributes["href"].Value;
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return "";
+            }
+        }
     }
 }

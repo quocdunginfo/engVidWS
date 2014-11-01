@@ -70,7 +70,7 @@ namespace engVidWSCORE
             {
                 var httpClient = new HttpClient();
                 //return await httpClient.GetStringAsync(new Uri(url)).ConfigureAwait(false);
-                return await httpClient.GetStringAsync(new Uri("http://localhost/sample.html")).ConfigureAwait(false);
+                return await httpClient.GetStringAsync(new Uri(url)).ConfigureAwait(false);
             }
             catch (Exception)
             {
